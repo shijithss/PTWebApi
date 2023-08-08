@@ -25,7 +25,8 @@ namespace User.Microservice.Application.Features.User.Events
             foreach (var userWrite in notification.Users)
             {
                 var userQuery = _mapper.Map<Entities.User, Entities.UserQuery>(userWrite);
-                userQuery.AddTodo(userWrite.Todos.ToList());
+                var todoQuery = _mapper.Map<List<Entities.Todo>, List<Entities.TodoQuery>>(userWrite.Todos.ToList());
+                userQuery.AddTodo(todoQuery);
                 var postQuery = _mapper.Map<List<Entities.Post>, List<Entities.PostQuery>>(userWrite.Posts.ToList());
                 userQuery.AddPostQuery(postQuery);
                 UserQueries.Add(userQuery);

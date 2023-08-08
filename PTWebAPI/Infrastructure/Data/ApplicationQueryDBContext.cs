@@ -22,12 +22,12 @@ namespace User.Microservice.Infrastructure.Data
             });
             modelBuilder.Entity<Entities.UserQuery>().OwnsOne(x => x.hair);
 
-            modelBuilder.Entity<Entities.Address>().OwnsOne(x => x.coordinates);
+            modelBuilder.Entity<Entities.AddressQuery>().OwnsOne(x => x.coordinates);
 
         }
 
         public DbSet<Entities.UserQuery> Users { get; set; }
-        public DbSet<Entities.Todo> Todos { get; set; }
+        public DbSet<Entities.TodoQuery> Todos { get; set; }
         public DbSet<Entities.PostQuery> Posts { get; set; }
 
         public async Task<int> SaveChanges()

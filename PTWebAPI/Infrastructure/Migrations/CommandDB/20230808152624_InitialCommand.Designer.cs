@@ -12,7 +12,7 @@ using User.Microservice.Infrastructure.Data;
 namespace User.Microservice.Infrastructure.Migrations.CommandDB
 {
     [DbContext(typeof(ApplicationCommandDBContext))]
-    [Migration("20230808014915_InitialCommand")]
+    [Migration("20230808152624_InitialCommand")]
     partial class InitialCommand
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,19 +33,15 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("address")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("city")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("postalCode")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("state")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -135,82 +131,63 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
                         .HasColumnType("integer");
 
                     b.Property<string>("birthDate")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("bloodGroup")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("domain")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ein")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("email")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("eyeColor")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("firstName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("gender")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("height")
                         .HasColumnType("integer");
 
                     b.Property<string>("image")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ip")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("lastName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("macAddress")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("maidenName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("password")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("phone")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ssn")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("university")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("userAgent")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("username")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<double>("weight")
@@ -280,23 +257,18 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
                                 .HasColumnType("integer");
 
                             b1.Property<string>("cardExpire")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("cardNumber")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("cardType")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("currency")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("iban")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.HasKey("Userid");
@@ -316,15 +288,12 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
                                 .HasColumnType("integer");
 
                             b1.Property<string>("department")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("name")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("title")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.HasKey("Userid");
@@ -351,11 +320,9 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
                                 .HasColumnType("integer");
 
                             b1.Property<string>("color")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("type")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.HasKey("Userid");

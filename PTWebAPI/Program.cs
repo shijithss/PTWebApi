@@ -26,13 +26,18 @@ options.UseNpgsql(
    b => b.MigrationsAssembly(typeof(ApplicationQueryDBContext).Assembly.FullName)));
 builder.Services.AddScoped<IApplicationQueryDBContext>(provider => provider.GetService<ApplicationQueryDBContext>());
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("v1/swagger.json", "User.Microservice");
+    });
+
 }
 
 app.UseHttpsRedirection();
@@ -40,5 +45,13 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+try
+{
+    app.Run();
+}
+catch (Exception ex)
+{
 
-app.Run();
+	throw;
+}
+

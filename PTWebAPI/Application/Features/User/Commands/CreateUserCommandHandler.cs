@@ -39,6 +39,7 @@ namespace User.Microservice.Application.Features.User.Commands
                 try
                 {
                     _context.Users.Add(useritem);
+                  
                 }
                 catch (Exception ex)
                 {
@@ -47,9 +48,17 @@ namespace User.Microservice.Application.Features.User.Commands
                 }
 
             }
+            try
+            {
+                await _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                var test = ex.Message;
+                
+            }
 
-
-            await _context.SaveChanges();
+            
             var dataModel = _context.Users.Include(x => x.Todos).Include(x => x.Posts).ToList();
             // Reload the product to get the Id
             // await _context.Entry(product).ReloadAsync(cancellationToken);

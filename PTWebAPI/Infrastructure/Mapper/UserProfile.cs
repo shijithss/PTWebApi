@@ -19,6 +19,13 @@ namespace User.Microservice.Infrastructure.Mapper
             CreateMap<Models.Todo, Entities.Todo>();
             CreateMap<Entities.User, Entities.UserQuery>();
             CreateMap<Entities.Post, Entities.PostQuery>();
+            CreateMap<Entities.Todo, Entities.TodoQuery>();
+
+            CreateMap<Entities.Hair, Entities.HairQuery>();
+            CreateMap<Entities.Bank, Entities.BankQuery>();
+            CreateMap<Entities.Address, Entities.AddressQuery>();
+            CreateMap<Entities.Company, Entities.CompanyQuery>();
+            CreateMap<Entities.Coordinates, Entities.CoordinatesQuery>();
         }
     }
 }

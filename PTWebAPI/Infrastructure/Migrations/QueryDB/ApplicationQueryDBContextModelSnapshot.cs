@@ -23,7 +23,7 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("User.Microservice.Domain.Entities.Address", b =>
+            modelBuilder.Entity("User.Microservice.Domain.Entities.AddressQuery", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,7 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
 
                     b.HasKey("Id");
 
-                    b.ToTable("Address");
+                    b.ToTable("AddressQuery");
                 });
 
             modelBuilder.Entity("User.Microservice.Domain.Entities.PostQuery", b =>
@@ -100,7 +100,7 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("User.Microservice.Domain.Entities.Todo", b =>
+            modelBuilder.Entity("User.Microservice.Domain.Entities.TodoQuery", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -237,11 +237,11 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("User.Microservice.Domain.Entities.Address", b =>
+            modelBuilder.Entity("User.Microservice.Domain.Entities.AddressQuery", b =>
                 {
-                    b.OwnsOne("User.Microservice.Domain.Entities.Coordinates", "coordinates", b1 =>
+                    b.OwnsOne("User.Microservice.Domain.Entities.CoordinatesQuery", "coordinates", b1 =>
                         {
-                            b1.Property<int>("AddressId")
+                            b1.Property<int>("AddressQueryId")
                                 .HasColumnType("integer");
 
                             b1.Property<double>("lat")
@@ -250,12 +250,12 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                             b1.Property<double>("lng")
                                 .HasColumnType("double precision");
 
-                            b1.HasKey("AddressId");
+                            b1.HasKey("AddressQueryId");
 
-                            b1.ToTable("Address");
+                            b1.ToTable("AddressQuery");
 
                             b1.WithOwner()
-                                .HasForeignKey("AddressId");
+                                .HasForeignKey("AddressQueryId");
                         });
 
                     b.Navigation("coordinates")
@@ -269,7 +269,7 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                         .HasForeignKey("UserQueryid");
                 });
 
-            modelBuilder.Entity("User.Microservice.Domain.Entities.Todo", b =>
+            modelBuilder.Entity("User.Microservice.Domain.Entities.TodoQuery", b =>
                 {
                     b.HasOne("User.Microservice.Domain.Entities.UserQuery", null)
                         .WithMany("Todos")
@@ -278,13 +278,13 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
 
             modelBuilder.Entity("User.Microservice.Domain.Entities.UserQuery", b =>
                 {
-                    b.HasOne("User.Microservice.Domain.Entities.Address", "address")
+                    b.HasOne("User.Microservice.Domain.Entities.AddressQuery", "address")
                         .WithMany()
                         .HasForeignKey("addressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("User.Microservice.Domain.Entities.Bank", "bank", b1 =>
+                    b.OwnsOne("User.Microservice.Domain.Entities.BankQuery", "bank", b1 =>
                         {
                             b1.Property<int>("UserQueryid")
                                 .HasColumnType("integer");
@@ -317,7 +317,7 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                                 .HasForeignKey("UserQueryid");
                         });
 
-                    b.OwnsOne("User.Microservice.Domain.Entities.Company", "company", b1 =>
+                    b.OwnsOne("User.Microservice.Domain.Entities.CompanyQuery", "company", b1 =>
                         {
                             b1.Property<int>("UserQueryid")
                                 .HasColumnType("integer");
@@ -346,7 +346,7 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                             b1.WithOwner()
                                 .HasForeignKey("UserQueryid");
 
-                            b1.HasOne("User.Microservice.Domain.Entities.Address", "address")
+                            b1.HasOne("User.Microservice.Domain.Entities.AddressQuery", "address")
                                 .WithMany()
                                 .HasForeignKey("addressId")
                                 .OnDelete(DeleteBehavior.Cascade)
@@ -355,7 +355,7 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                             b1.Navigation("address");
                         });
 
-                    b.OwnsOne("User.Microservice.Domain.Entities.Hair", "hair", b1 =>
+                    b.OwnsOne("User.Microservice.Domain.Entities.HairQuery", "hair", b1 =>
                         {
                             b1.Property<int>("UserQueryid")
                                 .HasColumnType("integer");

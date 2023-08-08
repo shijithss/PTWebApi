@@ -10,6 +10,7 @@ namespace User.Microservice.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class UserController : ControllerBase
     {
         private IMediator _mediator;
@@ -29,11 +30,6 @@ namespace User.Microservice.Controllers
         public async Task<IActionResult> GetAll()
         {
             return Ok(await Mediator.Send(new GetAllUsersQuery()));
-        }
-        // POST api/<UserController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
         }
 
         // PUT api/<UserController>/5
