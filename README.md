@@ -21,6 +21,10 @@ Dockerize the service and use registry to store the images.
 Use the Postgresql docker image to deploy in AWS EC2
 UnitTesting approach
 Xunit used for UnitTest
+Microsoft.EntityFrameworkCore.InMemory for DB Context in memory
+Mock Mediatr
+Use Automapper PersonProfile and DummyJson repository from the service directly
+
 
 
 Steps to create the project
