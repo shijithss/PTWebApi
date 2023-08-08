@@ -23,7 +23,7 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("User.Microservice.Domain.Entities.AddressQuery", b =>
+            modelBuilder.Entity("User.Microservice.Domain.Entities.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,24 +32,20 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("address")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("city")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("postalCode")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("state")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("AddressQuery");
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("User.Microservice.Domain.Entities.PostQuery", b =>
@@ -67,7 +63,6 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                         .HasColumnType("integer");
 
                     b.Property<string>("body")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("hasFictionTag")
@@ -87,7 +82,6 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                         .HasColumnType("text[]");
 
                     b.Property<string>("title")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("userId")
@@ -100,7 +94,7 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("User.Microservice.Domain.Entities.TodoQuery", b =>
+            modelBuilder.Entity("User.Microservice.Domain.Entities.Todo", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -149,82 +143,63 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                         .HasColumnType("integer");
 
                     b.Property<string>("birthDate")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("bloodGroup")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("domain")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ein")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("email")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("eyeColor")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("firstName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("gender")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("height")
                         .HasColumnType("integer");
 
                     b.Property<string>("image")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ip")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("lastName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("macAddress")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("maidenName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("password")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("phone")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ssn")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("university")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("userAgent")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("username")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<double>("weight")
@@ -237,11 +212,11 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("User.Microservice.Domain.Entities.AddressQuery", b =>
+            modelBuilder.Entity("User.Microservice.Domain.Entities.Address", b =>
                 {
-                    b.OwnsOne("User.Microservice.Domain.Entities.CoordinatesQuery", "coordinates", b1 =>
+                    b.OwnsOne("User.Microservice.Domain.Entities.Coordinates", "coordinates", b1 =>
                         {
-                            b1.Property<int>("AddressQueryId")
+                            b1.Property<int>("AddressId")
                                 .HasColumnType("integer");
 
                             b1.Property<double>("lat")
@@ -250,12 +225,12 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                             b1.Property<double>("lng")
                                 .HasColumnType("double precision");
 
-                            b1.HasKey("AddressQueryId");
+                            b1.HasKey("AddressId");
 
-                            b1.ToTable("AddressQuery");
+                            b1.ToTable("Address");
 
                             b1.WithOwner()
-                                .HasForeignKey("AddressQueryId");
+                                .HasForeignKey("AddressId");
                         });
 
                     b.Navigation("coordinates")
@@ -269,7 +244,7 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                         .HasForeignKey("UserQueryid");
                 });
 
-            modelBuilder.Entity("User.Microservice.Domain.Entities.TodoQuery", b =>
+            modelBuilder.Entity("User.Microservice.Domain.Entities.Todo", b =>
                 {
                     b.HasOne("User.Microservice.Domain.Entities.UserQuery", null)
                         .WithMany("Todos")
@@ -278,35 +253,30 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
 
             modelBuilder.Entity("User.Microservice.Domain.Entities.UserQuery", b =>
                 {
-                    b.HasOne("User.Microservice.Domain.Entities.AddressQuery", "address")
+                    b.HasOne("User.Microservice.Domain.Entities.Address", "address")
                         .WithMany()
                         .HasForeignKey("addressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("User.Microservice.Domain.Entities.BankQuery", "bank", b1 =>
+                    b.OwnsOne("User.Microservice.Domain.Entities.Bank", "bank", b1 =>
                         {
                             b1.Property<int>("UserQueryid")
                                 .HasColumnType("integer");
 
                             b1.Property<string>("cardExpire")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("cardNumber")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("cardType")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("currency")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("iban")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.HasKey("UserQueryid");
@@ -317,7 +287,7 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                                 .HasForeignKey("UserQueryid");
                         });
 
-                    b.OwnsOne("User.Microservice.Domain.Entities.CompanyQuery", "company", b1 =>
+                    b.OwnsOne("User.Microservice.Domain.Entities.Company", "company", b1 =>
                         {
                             b1.Property<int>("UserQueryid")
                                 .HasColumnType("integer");
@@ -326,15 +296,12 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                                 .HasColumnType("integer");
 
                             b1.Property<string>("department")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("name")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("title")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.HasKey("UserQueryid");
@@ -346,7 +313,7 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                             b1.WithOwner()
                                 .HasForeignKey("UserQueryid");
 
-                            b1.HasOne("User.Microservice.Domain.Entities.AddressQuery", "address")
+                            b1.HasOne("User.Microservice.Domain.Entities.Address", "address")
                                 .WithMany()
                                 .HasForeignKey("addressId")
                                 .OnDelete(DeleteBehavior.Cascade)
@@ -355,17 +322,15 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                             b1.Navigation("address");
                         });
 
-                    b.OwnsOne("User.Microservice.Domain.Entities.HairQuery", "hair", b1 =>
+                    b.OwnsOne("User.Microservice.Domain.Entities.Hair", "hair", b1 =>
                         {
                             b1.Property<int>("UserQueryid")
                                 .HasColumnType("integer");
 
                             b1.Property<string>("color")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("type")
-                                .IsRequired()
                                 .HasColumnType("text");
 
                             b1.HasKey("UserQueryid");

@@ -1,34 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
-
-namespace User.Microservice.Domain.Entities
+﻿namespace User.Microservice.Application.Models
 {
-    
-     public class UserQuery : BaseEntity
+    public class UserViewModel
     {
-        internal List<Todo> _Todos = new();
-        public IReadOnlyCollection<Todo> Todos => new ReadOnlyCollection<Todo>(_Todos);
-        internal List<PostQuery> _Posts = new();
-        public IReadOnlyCollection<PostQuery> Posts => new ReadOnlyCollection<PostQuery>(_Posts);
-        public void AddTodo(List<Todo> _TodosList)
-        {
-
-            _Todos.AddRange(_TodosList);
-        }
-        public void AddPostQuery(List<PostQuery> _PostsList)
-        {
-            foreach (var postQuery in _PostsList)
-            {
-                postQuery.CheckFictionTag();
-                postQuery.CheckFrenchTag();
-                postQuery.CheckMorethanTwoReactions();
-            }
-            _Posts.AddRange(_PostsList);
-        }
-        [Key]
         public int id { get; private set; }
         public string? firstName { get; private set; }
         public string? lastName { get; private set; }
@@ -56,6 +29,6 @@ namespace User.Microservice.Domain.Entities
         public string? ein { get; private set; }
         public string? ssn { get; private set; }
         public string? userAgent { get; private set; }
-
     }
+
 }

@@ -7,11 +7,11 @@ namespace User.Microservice.Domain.Entities
     {
         [Key]
         public int id { get; private set; }
-        public string title { get; private set; }
-        public string body { get; private set; }
+        public string? title { get; private set; }
+        public string? body { get; private set; }
         public int userId { get; private set; }
 
-        public List<string> tags { get; private set; }
+        public List<string?> tags { get; private set; }
 
         public bool hasFrenchTag { get; private set; }
 

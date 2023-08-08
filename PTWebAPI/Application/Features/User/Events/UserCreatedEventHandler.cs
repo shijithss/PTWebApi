@@ -24,12 +24,20 @@ namespace User.Microservice.Application.Features.User.Events
             IList<Entities.UserQuery> UserQueries = new List<Entities.UserQuery>();
             foreach (var userWrite in notification.Users)
             {
-                var userQuery = _mapper.Map<Entities.User, Entities.UserQuery>(userWrite);
-                var todoQuery = _mapper.Map<List<Entities.Todo>, List<Entities.TodoQuery>>(userWrite.Todos.ToList());
-                userQuery.AddTodo(todoQuery);
-                var postQuery = _mapper.Map<List<Entities.Post>, List<Entities.PostQuery>>(userWrite.Posts.ToList());
-                userQuery.AddPostQuery(postQuery);
-                UserQueries.Add(userQuery);
+                try
+                {
+                    var userQuery = _mapper.Map<Entities.User, Entities.UserQuery>(userWrite);
+                    userQuery.AddTodo(userWrite.Todos.ToList());
+                    var postQuery = _mapper.Map<List<Entities.Post>, List<Entities.PostQuery>>(userWrite.Posts.ToList());
+                    userQuery.AddPostQuery(postQuery);
+                    UserQueries.Add(userQuery);
+                }
+                catch (Exception ex)
+                {
+                    var t= ex.ToString();
+                    throw;
+                }
+               
             }
             _dbQueryContext.Users.AddRange(UserQueries);
             await _dbQueryContext.SaveChanges();

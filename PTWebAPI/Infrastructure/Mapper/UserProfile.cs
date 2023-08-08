@@ -17,15 +17,10 @@ namespace User.Microservice.Infrastructure.Mapper
 
             CreateMap<Models.Post, Entities.Post>();
             CreateMap<Models.Todo, Entities.Todo>();
-            CreateMap<Entities.User, Entities.UserQuery>();
+            CreateMap<Entities.User, Entities.UserQuery>().ForMember(x => x.Todos, opt => opt.Ignore()).ForMember(x => x.Posts, opt => opt.Ignore());
             CreateMap<Entities.Post, Entities.PostQuery>();
-            CreateMap<Entities.Todo, Entities.TodoQuery>();
+            CreateMap<Entities.UserQuery, Models.UserViewModel>().ForMember(x => x.hair, opt => opt.Ignore()).ForMember(x => x.address, opt => opt.Ignore()).ForMember(x => x.company, opt => opt.Ignore()).ForMember(x => x.bank, opt => opt.Ignore());
 
-            CreateMap<Entities.Hair, Entities.HairQuery>();
-            CreateMap<Entities.Bank, Entities.BankQuery>();
-            CreateMap<Entities.Address, Entities.AddressQuery>();
-            CreateMap<Entities.Company, Entities.CompanyQuery>();
-            CreateMap<Entities.Coordinates, Entities.CoordinatesQuery>();
         }
     }
 }

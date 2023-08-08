@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace User.Microservice.Infrastructure.Migrations.QueryDB
 {
-    public partial class UpdatedPostUserQuery : Migration
+    public partial class InitialQuery : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,12 +16,12 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    address = table.Column<string>(type: "text", nullable: false),
-                    city = table.Column<string>(type: "text", nullable: false),
+                    address = table.Column<string>(type: "text", nullable: true),
+                    city = table.Column<string>(type: "text", nullable: true),
                     coordinates_lat = table.Column<double>(type: "double precision", nullable: false),
                     coordinates_lng = table.Column<double>(type: "double precision", nullable: false),
-                    postalCode = table.Column<string>(type: "text", nullable: false),
-                    state = table.Column<string>(type: "text", nullable: false)
+                    postalCode = table.Column<string>(type: "text", nullable: true),
+                    state = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -34,40 +34,40 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    firstName = table.Column<string>(type: "text", nullable: false),
-                    lastName = table.Column<string>(type: "text", nullable: false),
-                    maidenName = table.Column<string>(type: "text", nullable: false),
+                    firstName = table.Column<string>(type: "text", nullable: true),
+                    lastName = table.Column<string>(type: "text", nullable: true),
+                    maidenName = table.Column<string>(type: "text", nullable: true),
                     age = table.Column<int>(type: "integer", nullable: false),
-                    gender = table.Column<string>(type: "text", nullable: false),
-                    email = table.Column<string>(type: "text", nullable: false),
-                    phone = table.Column<string>(type: "text", nullable: false),
-                    username = table.Column<string>(type: "text", nullable: false),
-                    password = table.Column<string>(type: "text", nullable: false),
-                    birthDate = table.Column<string>(type: "text", nullable: false),
-                    image = table.Column<string>(type: "text", nullable: false),
-                    bloodGroup = table.Column<string>(type: "text", nullable: false),
+                    gender = table.Column<string>(type: "text", nullable: true),
+                    email = table.Column<string>(type: "text", nullable: true),
+                    phone = table.Column<string>(type: "text", nullable: true),
+                    username = table.Column<string>(type: "text", nullable: true),
+                    password = table.Column<string>(type: "text", nullable: true),
+                    birthDate = table.Column<string>(type: "text", nullable: true),
+                    image = table.Column<string>(type: "text", nullable: true),
+                    bloodGroup = table.Column<string>(type: "text", nullable: true),
                     height = table.Column<int>(type: "integer", nullable: false),
                     weight = table.Column<double>(type: "double precision", nullable: false),
-                    eyeColor = table.Column<string>(type: "text", nullable: false),
-                    hair_color = table.Column<string>(type: "text", nullable: false),
-                    hair_type = table.Column<string>(type: "text", nullable: false),
-                    domain = table.Column<string>(type: "text", nullable: false),
-                    ip = table.Column<string>(type: "text", nullable: false),
+                    eyeColor = table.Column<string>(type: "text", nullable: true),
+                    hair_color = table.Column<string>(type: "text", nullable: true),
+                    hair_type = table.Column<string>(type: "text", nullable: true),
+                    domain = table.Column<string>(type: "text", nullable: true),
+                    ip = table.Column<string>(type: "text", nullable: true),
                     addressId = table.Column<int>(type: "integer", nullable: false),
-                    macAddress = table.Column<string>(type: "text", nullable: false),
-                    university = table.Column<string>(type: "text", nullable: false),
-                    bank_cardExpire = table.Column<string>(type: "text", nullable: false),
-                    bank_cardNumber = table.Column<string>(type: "text", nullable: false),
-                    bank_cardType = table.Column<string>(type: "text", nullable: false),
-                    bank_currency = table.Column<string>(type: "text", nullable: false),
-                    bank_iban = table.Column<string>(type: "text", nullable: false),
+                    macAddress = table.Column<string>(type: "text", nullable: true),
+                    university = table.Column<string>(type: "text", nullable: true),
+                    bank_cardExpire = table.Column<string>(type: "text", nullable: true),
+                    bank_cardNumber = table.Column<string>(type: "text", nullable: true),
+                    bank_cardType = table.Column<string>(type: "text", nullable: true),
+                    bank_currency = table.Column<string>(type: "text", nullable: true),
+                    bank_iban = table.Column<string>(type: "text", nullable: true),
                     company_addressId = table.Column<int>(type: "integer", nullable: false),
-                    company_department = table.Column<string>(type: "text", nullable: false),
-                    company_name = table.Column<string>(type: "text", nullable: false),
-                    company_title = table.Column<string>(type: "text", nullable: false),
-                    ein = table.Column<string>(type: "text", nullable: false),
-                    ssn = table.Column<string>(type: "text", nullable: false),
-                    userAgent = table.Column<string>(type: "text", nullable: false),
+                    company_department = table.Column<string>(type: "text", nullable: true),
+                    company_name = table.Column<string>(type: "text", nullable: true),
+                    company_title = table.Column<string>(type: "text", nullable: true),
+                    ein = table.Column<string>(type: "text", nullable: true),
+                    ssn = table.Column<string>(type: "text", nullable: true),
+                    userAgent = table.Column<string>(type: "text", nullable: true),
                     Id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -93,8 +93,8 @@ namespace User.Microservice.Infrastructure.Migrations.QueryDB
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    title = table.Column<string>(type: "text", nullable: false),
-                    body = table.Column<string>(type: "text", nullable: false),
+                    title = table.Column<string>(type: "text", nullable: true),
+                    body = table.Column<string>(type: "text", nullable: true),
                     userId = table.Column<int>(type: "integer", nullable: false),
                     tags = table.Column<List<string>>(type: "text[]", nullable: false),
                     hasFrenchTag = table.Column<bool>(type: "boolean", nullable: false),
