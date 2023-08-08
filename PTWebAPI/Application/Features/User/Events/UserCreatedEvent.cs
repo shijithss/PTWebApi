@@ -12,6 +12,9 @@ using AutoMapper;
 
 namespace User.Microservice.Application.Features.User.Events
 {
+    /// <summary>
+    /// UserCreatedEvent object
+    /// </summary>
     public class UserCreatedEvent : INotification
     {
 

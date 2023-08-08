@@ -10,8 +10,10 @@ using User.Microservice.Application.Features.User.Events;
 
 namespace User.Microservice.Application.Features.User.Commands
 {
+    /// <summary>
+    /// CreateUserCommand object
+    /// </summary>
     public class CreateUserCommand : IRequest<int>
     {
-        
     }
 }

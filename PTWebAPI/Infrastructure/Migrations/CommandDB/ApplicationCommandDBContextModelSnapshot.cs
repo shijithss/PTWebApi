@@ -49,11 +49,11 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
 
             modelBuilder.Entity("User.Microservice.Domain.Entities.Post", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("postid")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("postid"));
 
                     b.Property<int>("Id")
                         .HasColumnType("integer");
@@ -76,7 +76,7 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
                     b.Property<int>("userId")
                         .HasColumnType("integer");
 
-                    b.HasKey("id");
+                    b.HasKey("postid");
 
                     b.HasIndex("userId");
 
@@ -85,11 +85,11 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
 
             modelBuilder.Entity("User.Microservice.Domain.Entities.Todo", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("todoid")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("todoid"));
 
                     b.Property<int>("Id")
                         .HasColumnType("integer");
@@ -104,7 +104,7 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
                     b.Property<int>("userId")
                         .HasColumnType("integer");
 
-                    b.HasKey("id");
+                    b.HasKey("todoid");
 
                     b.HasIndex("userId");
 
@@ -113,11 +113,11 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
 
             modelBuilder.Entity("User.Microservice.Domain.Entities.User", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("userId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("userId"));
 
                     b.Property<int>("Id")
                         .HasColumnType("integer");
@@ -191,7 +191,7 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
                     b.Property<double>("weight")
                         .HasColumnType("double precision");
 
-                    b.HasKey("id");
+                    b.HasKey("userId");
 
                     b.HasIndex("addressId");
 
@@ -251,7 +251,7 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
 
                     b.OwnsOne("User.Microservice.Domain.Entities.Bank", "bank", b1 =>
                         {
-                            b1.Property<int>("Userid")
+                            b1.Property<int>("userId")
                                 .HasColumnType("integer");
 
                             b1.Property<string>("cardExpire")
@@ -269,17 +269,17 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
                             b1.Property<string>("iban")
                                 .HasColumnType("text");
 
-                            b1.HasKey("Userid");
+                            b1.HasKey("userId");
 
                             b1.ToTable("Users");
 
                             b1.WithOwner()
-                                .HasForeignKey("Userid");
+                                .HasForeignKey("userId");
                         });
 
                     b.OwnsOne("User.Microservice.Domain.Entities.Company", "company", b1 =>
                         {
-                            b1.Property<int>("Userid")
+                            b1.Property<int>("userId")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("addressId")
@@ -294,14 +294,11 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
                             b1.Property<string>("title")
                                 .HasColumnType("text");
 
-                            b1.HasKey("Userid");
+                            b1.HasKey("userId");
 
                             b1.HasIndex("addressId");
 
                             b1.ToTable("Users");
-
-                            b1.WithOwner()
-                                .HasForeignKey("Userid");
 
                             b1.HasOne("User.Microservice.Domain.Entities.Address", "address")
                                 .WithMany()
@@ -309,12 +306,15 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
                                 .OnDelete(DeleteBehavior.Cascade)
                                 .IsRequired();
 
+                            b1.WithOwner()
+                                .HasForeignKey("userId");
+
                             b1.Navigation("address");
                         });
 
                     b.OwnsOne("User.Microservice.Domain.Entities.Hair", "hair", b1 =>
                         {
-                            b1.Property<int>("Userid")
+                            b1.Property<int>("userId")
                                 .HasColumnType("integer");
 
                             b1.Property<string>("color")
@@ -323,12 +323,12 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
                             b1.Property<string>("type")
                                 .HasColumnType("text");
 
-                            b1.HasKey("Userid");
+                            b1.HasKey("userId");
 
                             b1.ToTable("Users");
 
                             b1.WithOwner()
-                                .HasForeignKey("Userid");
+                                .HasForeignKey("userId");
                         });
 
                     b.Navigation("address");

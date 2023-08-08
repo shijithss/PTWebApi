@@ -7,6 +7,9 @@ using User.Microservice.Infrastructure.Data;
 
 namespace User.Microservice.Application.Features.User.Queries
 {
+    /// <summary>
+    /// Depreciated. Not in scope for the task
+    /// </summary>
     public class GetUserByIdQuery : IRequest<Entities.UserQuery>
     {
         public int Id { get; set; }
@@ -19,7 +22,7 @@ namespace User.Microservice.Application.Features.User.Queries
             }
             public async Task<Entities.UserQuery> Handle(GetUserByIdQuery query, CancellationToken cancellationToken)
             {
-                var user = _context.Users.Where(a => a.Id == query.Id).FirstOrDefault();
+                var user = _context.Users.Where(a => a.userid == query.Id).FirstOrDefault();
                 if (user == null) return null;
                 return user;
             }

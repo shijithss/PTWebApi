@@ -8,6 +8,9 @@ using Entities = User.Microservice.Domain.Entities;
 
 namespace User.Microservice.Application.Features.User.Commands
 {
+    /// <summary>
+    /// CreateUserCommandHandler logic to create all the tables for User, Todo and Post
+    /// </summary>
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
     {
         private readonly IApplicationCommandDBContext _context;
@@ -23,45 +26,30 @@ namespace User.Microservice.Application.Features.User.Commands
         }
         public async Task<int> Handle(CreateUserCommand command, CancellationToken cancellationToken)
         {
+            //Get all the json list from the json repository
             var posts = _dummyJsonRepository.GetAllPosts().Result;
             var users = _dummyJsonRepository.GetAllUsers().Result;
             var todos = _dummyJsonRepository.GetAllTodos().Result;
 
-
+            //map from model to entities
             var usersList = _mapper.Map<List<Models.User>, List<Entities.User>>(users);
             var todoList = _mapper.Map<List<Models.Todo>, List<Entities.Todo>>(todos);
             var postsList = _mapper.Map<List<Models.Post>, List<Entities.Post>>(posts);
             foreach (var useritem in usersList)
             {
+                //Add todo and posts
+                useritem.AddTodo(todoList.Where(x => x.userId.Equals(useritem.userId)).ToList());
+                useritem.AddPost(postsList.Where(x => x.userId.Equals(useritem.userId)).ToList());
+                _context.Users.Add(useritem);
 
-                useritem.AddTodo(todoList.Where(x => x.userId.Equals(useritem.id)).ToList());
-                useritem.AddPost(postsList.Where(x => x.userId.Equals(useritem.id)).ToList());
-                try
-                {
-                    _context.Users.Add(useritem);
-                  
-                }
-                catch (Exception ex)
-                {
 
-                    var t = ex.Message;
-                }
 
             }
-            try
-            {
-                await _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                var test = ex.Message;
-                
-            }
+            //Save the user aggregate to Database
+            await _context.SaveChanges();
 
-            
+
             var dataModel = _context.Users.Include(x => x.Todos).Include(x => x.Posts).ToList();
-            // Reload the product to get the Id
-            // await _context.Entry(product).ReloadAsync(cancellationToken);
 
             var productCreatedEvent = new UserCreatedEvent
             {
@@ -69,6 +57,7 @@ namespace User.Microservice.Application.Features.User.Commands
                 Users = dataModel
             };
 
+            //Raise the Event to publish the command data to the Read/Query Database
             await _mediator.Publish(productCreatedEvent, cancellationToken);
 
             return dataModel.Count;

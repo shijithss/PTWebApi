@@ -7,15 +7,16 @@ using Microsoft.EntityFrameworkCore;
 using User.Microservice.Infrastructure.Data;
 using Entities = User.Microservice.Domain.Entities;
 using AutoMapper;
+using User.Microservice.Application.Models;
 
 namespace User.Microservice.Application.Features.User.Queries
 {
     /// <summary>
-    /// Query empty
+    /// GetUsersByCardTypeQuery object
     /// </summary>
-    public class GetAllUsersQuery : IRequest<IEnumerable<Models.UserViewModel>>
+    public class GetUsersByCardTypeQuery : IRequest<IEnumerable<Models.UserPostsViewModel>>
     {
-
+        public string CardType { get; set; }
     }
-
+ 
 }

@@ -4,9 +4,9 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace User.Microservice.Infrastructure.Migrations.CommandDB
+namespace User.Microservice.Infrastructure.Migrations.QueryDB
 {
-    public partial class InitialCommand : Migration
+    public partial class InitialQuery : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,7 +32,7 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
                 name: "Users",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
+                    userid = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     firstName = table.Column<string>(type: "text", nullable: true),
                     lastName = table.Column<string>(type: "text", nullable: true),
@@ -72,7 +72,7 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.id);
+                    table.PrimaryKey("PK_Users", x => x.userid);
                     table.ForeignKey(
                         name: "FK_Users_Address_addressId",
                         column: x => x.addressId,
@@ -91,57 +91,60 @@ namespace User.Microservice.Infrastructure.Migrations.CommandDB
                 name: "Posts",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
+                    postid = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    title = table.Column<string>(type: "text", nullable: false),
-                    body = table.Column<string>(type: "text", nullable: false),
+                    title = table.Column<string>(type: "text", nullable: true),
+                    body = table.Column<string>(type: "text", nullable: true),
                     userId = table.Column<int>(type: "integer", nullable: false),
                     tags = table.Column<List<string>>(type: "text[]", nullable: false),
+                    hasFrenchTag = table.Column<bool>(type: "boolean", nullable: false),
+                    hasFictionTag = table.Column<bool>(type: "boolean", nullable: false),
+                    hasMorethanTwoReactions = table.Column<bool>(type: "boolean", nullable: false),
                     reactions = table.Column<int>(type: "integer", nullable: false),
+                    UserQueryuserid = table.Column<int>(type: "integer", nullable: true),
                     Id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Posts", x => x.id);
+                    table.PrimaryKey("PK_Posts", x => x.postid);
                     table.ForeignKey(
-                        name: "FK_Posts_Users_userId",
-                        column: x => x.userId,
+                        name: "FK_Posts_Users_UserQueryuserid",
+                        column: x => x.UserQueryuserid,
                         principalTable: "Users",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "userid");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Todos",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
+                    todoid = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     todo = table.Column<string>(type: "text", nullable: false),
                     completed = table.Column<bool>(type: "boolean", nullable: false),
                     userId = table.Column<int>(type: "integer", nullable: false),
+                    UserQueryuserid = table.Column<int>(type: "integer", nullable: true),
                     Id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Todos", x => x.id);
+                    table.PrimaryKey("PK_Todos", x => x.todoid);
                     table.ForeignKey(
-                        name: "FK_Todos_Users_userId",
-                        column: x => x.userId,
+                        name: "FK_Todos_Users_UserQueryuserid",
+                        column: x => x.UserQueryuserid,
                         principalTable: "Users",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "userid");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_userId",
+                name: "IX_Posts_UserQueryuserid",
                 table: "Posts",
-                column: "userId");
+                column: "UserQueryuserid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Todos_userId",
+                name: "IX_Todos_UserQueryuserid",
                 table: "Todos",
-                column: "userId");
+                column: "UserQueryuserid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_addressId",

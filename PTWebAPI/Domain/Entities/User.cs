@@ -62,7 +62,7 @@ namespace User.Microservice.Domain.Entities
             _Posts.AddRange(_PostsList);
         }
         [Key]
-        public int id { get; private set; }
+        public int userId { get; private set; }
         public string? firstName { get; private set ; }
         public string? lastName { get; private set; }
         public string? maidenName { get; private set; }

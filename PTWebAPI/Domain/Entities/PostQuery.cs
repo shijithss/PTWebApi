@@ -6,7 +6,7 @@ namespace User.Microservice.Domain.Entities
     public class PostQuery : BaseEntity
     {
         [Key]
-        public int id { get; private set; }
+        public int postid { get; private set; }
         public string? title { get; private set; }
         public string? body { get; private set; }
         public int userId { get; private set; }
@@ -22,11 +22,11 @@ namespace User.Microservice.Domain.Entities
 
         public void CheckFrenchTag()
         {
-            hasFrenchTag = tags.Contains("French") ? true : false;
+            hasFrenchTag = tags.Any(x => x.Contains("french")) ? true : false;
         }
         public void CheckFictionTag()
         {
-            hasFictionTag = tags.Contains("Fiction") ? true : false;
+            hasFictionTag = tags.Any(x => x.Contains("fiction")) ? true : false;
         }
 
         public void CheckMorethanTwoReactions()

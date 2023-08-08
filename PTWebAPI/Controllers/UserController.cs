@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using User.Microservice.Application.Features.User.Commands;
 using User.Microservice.Application.Features.User.Queries;
 using User.Microservice.Infrastructure.Data;
@@ -22,14 +23,34 @@ namespace User.Microservice.Controllers
             _context = context;
         }
         [HttpPost]
+        [Route("CreateAllUsers")]
         public async Task<IActionResult> Create(CreateUserCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [Route("GetAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
         {
             return Ok(await Mediator.Send(new GetAllUsersQuery()));
+        }
+        [HttpGet]
+        [Route("GetAllPosts")]
+        public async Task<IActionResult> GetAllPosts()
+        {
+            return Ok(await Mediator.Send(new GetPostDetailsQuery()));
+        }
+        [HttpGet]
+        [Route("GetUsersByCardType")]
+        public async Task<IActionResult> GetUsersByCardType(string _cardType)
+        {
+            return Ok(await Mediator.Send(new GetUsersByCardTypeQuery() {CardType = _cardType }));
+        }
+        [HttpGet]
+        [Route("GetUsersByPostCount")]
+        public async Task<IActionResult> GetUsersByPostCount(int postCount)
+        {
+            return Ok(await Mediator.Send(new GetUsersByPostCountQuery() { PostCount = postCount }));
         }
 
         // PUT api/<UserController>/5
