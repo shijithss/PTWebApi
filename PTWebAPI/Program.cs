@@ -46,6 +46,21 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var contextcommand = services.GetRequiredService<ApplicationCommandDBContext>();
+    if (contextcommand.Database.GetPendingMigrations().Any())
+    {
+        contextcommand.Database.Migrate();
+    }
+    var contextquery = services.GetRequiredService<ApplicationQueryDBContext>();
+    if (contextquery.Database.GetPendingMigrations().Any())
+    {
+        contextquery.Database.Migrate();
+    }
+}
 app.Run();
 
 

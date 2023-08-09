@@ -1,0 +1,55 @@
+version: '3.4'
+
+services:
+
+
+  s_product.webapi:
+    container_name: c_userweb_api
+    image: ${DOCKER_REGISTRY-}userwebapi
+    depends_on:
+        - postgresql_db1
+        - postgresql_db2
+    ports:
+        - "7253:7253"
+
+    networks:
+        - ptweb-proxy-net
+    build:
+      context: .
+      dockerfile: PTWebAPI/Dockerfile
+
+  postgresql_db1:
+    image: postgres:latest
+    container_name: postgres1
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=UserCommandPGDB
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    networks:
+      - ptweb-proxy-net
+
+  postgresql_db2:
+    image: postgres:latest
+    container_name: postgres2
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=UserQueryPGDB
+    ports:
+      - "5433:5433"
+    restart: always
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    networks:
+      - ptweb-proxy-net
+volumes:
+ database-data:
+
+networks:
+  ptweb-proxy-net:
+    driver: bridge 

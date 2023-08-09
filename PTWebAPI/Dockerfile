@@ -7,16 +7,17 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["PTWebAPI/PTWebAPI.csproj", "PTWebAPI/"]
-RUN dotnet restore "PTWebAPI/PTWebAPI.csproj"
+COPY ["PTWebAPI/User.Microservice.csproj", "PTWebAPI/"]
+RUN dotnet restore "PTWebAPI/User.Microservice.csproj"
 COPY . .
 WORKDIR "/src/PTWebAPI"
-RUN dotnet build "PTWebAPI.csproj" -c Release -o /app/build
+RUN dotnet build "User.Microservice.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "PTWebAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "User.Microservice.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "PTWebAPI.dll"]
+ENV ASPNETCORE_URLS=http://+:7253 DOTNET_RUNNING_IN_CONTAINER=true 
+ENTRYPOINT ["dotnet", "User.Microservice.dll"]

@@ -58,8 +58,9 @@ namespace User.Microservice.Domain.Entities
         }
         public void AddPost(List<Post> _PostsList)
         {
-
-            _Posts.AddRange(_PostsList);
+            //Apply Business Logic to filter the Posts for reactions greater than or equal 1 and tags contain history
+            var filteredPostsList = _PostsList.Where(x => x.reactions >= 1 && x.tags.Any(c=> c.Contains("history")));
+            _Posts.AddRange(filteredPostsList);
         }
         [Key]
         public int userId { get; private set; }
