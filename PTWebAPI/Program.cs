@@ -45,13 +45,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-try
-{
-    app.Run();
-}
-catch (Exception ex)
-{
 
-	throw;
-}
+app.Run();
+
 

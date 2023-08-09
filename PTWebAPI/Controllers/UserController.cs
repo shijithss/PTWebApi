@@ -42,9 +42,9 @@ namespace User.Microservice.Controllers
         }
         [HttpGet]
         [Route("GetUsersByCardType")]
-        public async Task<IActionResult> GetUsersByCardType(string _cardType)
+        public async Task<IActionResult> GetUsersByCardType(string cardType)
         {
-            return Ok(await Mediator.Send(new GetUsersByCardTypeQuery() {CardType = _cardType }));
+            return Ok(await Mediator.Send(new GetUsersByCardTypeQuery() {CardType = cardType }));
         }
         [HttpGet]
         [Route("GetUsersByPostCount")]

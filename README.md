@@ -4,21 +4,28 @@ Approach to solve the practical test
 3)	Use EF Code First approach to create DB objects. Dummyjson APIs for User, Todo, Posts are imported using repository.
 4)	Controller for Web API has http methods for Create and Get operations. Create actions will import the tables based on the model defined and save this to DB.
 5)	ReadDB has tables to read the Get queries. Used Viewmodel to customize data based on the requirements for data.
+
 Microservice Design
 Use API Gateway to microservice
 Microservice design on CQRS. Repository pattern not applied.
 Use MediatR for Notification and decouple the Command and Query layer. Eventual consistency and Event driven design achieved using MediatR. Query DB is updated using MediatR notifications.
 Followed DDD approach to design domain
 External service from DummyJson implemented as repository in the Infrastructure layer.
+
 DB Design
 Create Write database and Read database based on CQRS approach
 Create tables in the DB using EF migrations Code First approach.
 Migrations generated and applied separately for Command DB and Query DB.
 
+Console Application Design
+Console application 1 => Window to run all the services to create user and filter user records
+Console application 2 => Window to run all the services to Get all the posts based on the model in the scope
+
 Deployment Approach
 Deploy to AWS using Jenkins CI/CD pipeline
 Dockerize the service and use registry to store the images.
 Use the Postgresql docker image to deploy in AWS EC2
+
 UnitTesting approach
 Xunit used for UnitTest
 Microsoft.EntityFrameworkCore.InMemory for DB Context in memory
