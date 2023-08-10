@@ -71,6 +71,7 @@ Install the following packages in the Unit test project
 Install-Package Moq
 Install-Package Xunit
 
+![image](https://github.com/shijithss/PTWebApi/assets/32163593/e56dd68c-c0c4-469c-9d92-257bd13a2b3f)
 
 
 5)	Add the ApplicationDBContext class and Interface for Command and Query database. Define the connections strings in Appsettings.json
