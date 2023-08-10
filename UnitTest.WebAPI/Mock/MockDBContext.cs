@@ -9,7 +9,7 @@ using User.Microservice.Infrastructure.Data;
 
 namespace UnitTest.WebAPI.Mock
 {
-    public class MockTodoListDbContext : IDisposable
+    public class MockApplicationtDbContext : IDisposable
     {
         public class TestDbContext : ApplicationCommandDBContext
         {
@@ -28,9 +28,28 @@ namespace UnitTest.WebAPI.Mock
             }
         }
 
+        public class TestReadDbContext : ApplicationQueryDBContext
+        {
+
+            public TestReadDbContext(DbContextOptions<ApplicationQueryDBContext> options) : base(options)
+            {
+            }
+
+            public ModelBuilder ModelBuilder { get; private set; }
+
+            protected override void OnModelCreating(ModelBuilder modelBuilder)
+            {
+                base.OnModelCreating(modelBuilder);
+                modelBuilder.Entity<User.Microservice.Domain.Entities.PostQuery>().Ignore(x => x.tags);
+                this.ModelBuilder = modelBuilder;
+            }
+        }
+
         public TestDbContext InMemoryDBContext { get; private set; }
 
-        public MockTodoListDbContext()
+        public TestReadDbContext InMemoryReadDBContext { get; private set; }
+
+         public MockApplicationtDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationCommandDBContext>()
                 .UseInMemoryDatabase("InMemoryDBContext")
@@ -38,14 +57,18 @@ namespace UnitTest.WebAPI.Mock
 
             InMemoryDBContext = new TestDbContext(options);
 
-            //InMemoryDBContext.Users.Add(new User());
+            var optionsRead = new DbContextOptionsBuilder<ApplicationQueryDBContext>()
+               .UseInMemoryDatabase("InMemoryDBContext")
+               .Options;
 
-            // InMemoryDBContext.SaveChanges();
+            InMemoryReadDBContext = new TestReadDbContext(optionsRead);
+
         }
 
         public void Dispose()
         {
             InMemoryDBContext.Dispose();
+            InMemoryReadDBContext.Dispose();
         }
 
     }

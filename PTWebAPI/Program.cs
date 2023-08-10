@@ -1,6 +1,9 @@
+using MediatR;
+using MediatR.Pipeline;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
+using User.Microservice.Application.Behaviours;
 using User.Microservice.Infrastructure.Data;
 using User.Microservice.Infrastructure.Mapper;
 using User.Microservice.Infrastructure.Repositories;
@@ -26,7 +29,13 @@ options.UseNpgsql(
    b => b.MigrationsAssembly(typeof(ApplicationQueryDBContext).Assembly.FullName)));
 builder.Services.AddScoped<IApplicationQueryDBContext>(provider => provider.GetService<ApplicationQueryDBContext>());
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-
+builder.Services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+builder.Services.AddTransient(typeof(IRequestExceptionHandler<,,>), typeof(ExceptionLoggingBehaviour<,,>));
+builder.Host.ConfigureLogging(logging =>
+{
+    logging.ClearProviders();
+    logging.AddConsole();
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,6 +1,7 @@
 ﻿
 // TODO Enter your Dataverse environment's URL and logon info.
 using Microsoft.Extensions.Configuration;
+using System.Text;
 
 class Program
 {
@@ -16,11 +17,11 @@ class Program
 
         switch (input)
         {
-            case "a": // no input
-                 await ShowDataAsync(apiurl + "CreateAllUsers");
+            case "a": // post call
+                 await ShowDataAsyncPost(apiurl + "CreateAllUsers");
                 break;
 
-            case "b": // no input
+            case "b": // get call
                 await ShowDataAsync(apiurl + "GetAllUsers");
                 break;
 
@@ -57,6 +58,23 @@ class Program
             Console.Write(responseAsString);
         }
     ;
+
+    }
+
+    public static async Task ShowDataAsyncPost(string apiurl)
+    {
+
+        using (var client = new HttpClient())
+        {
+            var user = "{}";
+       
+        var response = await client.PostAsync(apiurl, new StringContent(user, Encoding.UTF8, "application/json"));
+        if (response != null)
+        {
+            Console.WriteLine(response.ToString());
+        }
+        }
+;
 
     }
 }

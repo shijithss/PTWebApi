@@ -52,8 +52,7 @@ namespace User.Microservice.Domain.Entities
         internal List<Post> _Posts = new();
         public IReadOnlyCollection<Post> Posts => new ReadOnlyCollection<Post>(_Posts);
         public void AddTodo(List<Todo> _TodosList)
-        {
-           
+        {  
             _Todos.AddRange(_TodosList);
         }
         public void AddPost(List<Post> _PostsList)
