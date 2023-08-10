@@ -15,13 +15,15 @@ Approach to solve the practical test
 
 7) Deployment of this Rest API done through docker images. Dockerized the API and the images of service and DB and configured in the docker compose file. Jenkins pipeline is used build and publish the images to Dockerhub.
 
-![image](https://github.com/shijithss/PTWebApi/assets/32163593/81fea22d-6424-423f-934b-1eab1656e859)
+![image](https://github.com/shijithss/PTWebApi/assets/32163593/a1dd5a5e-ac32-4654-b9e1-d331e7b0d919)
+
 
     
 Each of the approaches are further discussed in details the following sections:
 
 Microservice Design
-![image](https://github.com/shijithss/PTWebApi/assets/32163593/9355f464-cd19-4f44-88ae-edbaff9ee9fc)
+![image](https://github.com/shijithss/PTWebApi/assets/32163593/25f699a2-79b0-43c5-9481-8f311db877d3)
+
 
 * Use API Gateway to microservice
 * Microservice design on CQRS. 
@@ -44,7 +46,8 @@ Deployment Approach
 * Used TWO Postgresql docker image to run the DB for Command and Query DB in the application.
 * Created dockercompose file to deploy in the dockerdesktop. API runs successfully within dockerdesktop using DB images
 * Docker hub image below
-  ![image](https://github.com/shijithss/PTWebApi/assets/32163593/a5fab27c-9afe-41ac-b20f-0435d9aac1b9)
+ ![image](https://github.com/shijithss/PTWebApi/assets/32163593/40744438-2bca-451b-8864-fde23af8598d)
+
 
 
 Deployment Approach To AWS Cloud
@@ -62,7 +65,8 @@ UnitTesting approach
 * Microsoft.EntityFrameworkCore.InMemory for DB Context in memory
 * Mock Mediatr
 * Use Automapper PersonProfile and DummyJson repository from the service directly
-![image](https://github.com/shijithss/PTWebApi/assets/32163593/8326b9e4-f919-43b4-8b51-95fa7400c186)
+![image](https://github.com/shijithss/PTWebApi/assets/32163593/3679adb1-672b-423f-8417-843dfbcbc4d6)
+
 
 
 Console Application Design
