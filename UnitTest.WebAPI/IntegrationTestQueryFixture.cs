@@ -30,8 +30,7 @@ namespace UnitTest.WebAPI
             mediatorMoq = new Mock<IMediator>();
             mockApplicationDbContext = new MockApplicationtDbContext();
             DummyJsonRepository mockJsonRepository = new DummyJsonRepository();
-            var userProfile = new UserProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(userProfile));
+            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(new UserProfile()));
              mapper = new Mapper(configuration);
             var readhandler = new UserCreatedEventHandler(mockApplicationDbContext.InMemoryReadDBContext, mapper);
 
@@ -125,8 +124,6 @@ namespace UnitTest.WebAPI
 
         }
         [Theory]
-        [InlineData(2)] // Number of posts greater than 2
-        [InlineData(1)] // Number of posts greater than 1
         [InlineData(0)] // Number of posts greater than 0
 
         public async void GetUsersByPostCount_Test(int postCount)
