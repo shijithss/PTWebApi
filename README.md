@@ -1,7 +1,7 @@
 Approach to solve the practical test
 1)	Build microservice using CQRS, DDD, Clean Architecture, Aggregate, MediatR, EF, Postgresql, Jenkins and Docker
 
-2)	The microservice has Domain driven design approach and create aggregate root for User. Todos and Posts are aggregation under this aggregate root.
+2)	The microservice has Domain driven design approach and create aggregate root for User. Todos and Posts are aggregation under this aggregate root. All the Business rules are added in the Domain/Entity layer. Unit testing for Business logic performed with Domain entities.
 
 3)	Use EF Code First approach to create DB objects. Segregated and created Command DB and Read DB considering SOLID principle and loose coupling with the scope of scaling the performance for Read Operations. 
 
