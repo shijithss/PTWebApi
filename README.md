@@ -22,7 +22,7 @@ Approach to solve the practical test
 Each of the approaches are further discussed in details the following sections:
 
 Microservice Design
-![image](https://github.com/shijithss/PTWebApi/assets/32163593/25f699a2-79b0-43c5-9481-8f311db877d3)
+
 
 
 * Use API Gateway to microservice
@@ -33,6 +33,7 @@ Microservice Design
 * Use MediatR for Notification and decouple the Command and Query layer. Eventual consistency and Event driven design achieved using MediatR. Query DB is updated using MediatR notifications.
 * External service from DummyJson implemented as repository in the Infrastructure layer.
 * Repository pattern not applied.
+![image](https://github.com/shijithss/PTWebApi/assets/32163593/25f699a2-79b0-43c5-9481-8f311db877d3)
 
 DB Design
 Create Write database and Read database based on CQRS approach
