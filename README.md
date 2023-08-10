@@ -10,7 +10,12 @@ Approach to solve the practical test
 5)	Controller for Web API has http methods for Create and Get operations. Create actions will import the tables based on the model defined and save this to CommandDB. Mediatr Notifications publish events asynchronously to create the Query records in the Query Database.
 
 5)	ReadDB has projections/tables to read the Get queries. Used Viewmodel to customize data based on the requirements for data. For example UserTodosViewModel, UserPostsViewModel, PostViewModel based on the requirements for Console application 1 and 2.
+   
+6) Console application will call this API and respective Post or Get method and the response is given and console output.
 
+7) Deployment of this Rest API done through docker images. Dockerized the API and the images of service and DB and configured in the docker compose file. Jenkins pipeline is used build and publish the images to Dockerhub.
+
+    
 Each of the approaches are further discussed in details the following sections:
 
 Microservice Design
@@ -32,8 +37,18 @@ Migrations generated and applied separately for Command DB and Query DB.
 Deployment Approach
 * Dockerize the service and use registry to store the images.
 * Created Jenkins CI/CD pipeline to deploy the service image to Docker hub registry
-* Use the Postgresql docker image to run the application.
+* Used TWO Postgresql docker image to run the DB for Command and Query DB in the application.
 * Created dockercompose file to deploy in the dockerdesktop. API runs successfully within dockerdesktop using DB images
+
+Deployment Approach To AWS Cloud
+The docker images are published to ECR registry
+From ECR registry the images are deployed to ECS/EC2. To use Jenkins pipeline along with Terraform for environment configuration.
+Future scope: For Orchestration and management of containers EKS is considered. Need to add Kubernetes config files for the containers.
+
+Deployment Approach To Azure Cloud
+The docker images are published to ACR registry
+From ACR registry the images are deployed to Azure Apps. To use Azure DevOps pipeline.
+Future scope: For Orchestration and management of containers AKS is considered. Need to add Kubernetes config files for the containers.
 
 UnitTesting approach
 * Xunit used for UnitTest
