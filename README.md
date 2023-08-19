@@ -1,4 +1,4 @@
-Approach to solve the practical test
+# Approach to solve the practical test
 1)	Build microservice using CQRS, DDD, Clean Architecture, Aggregate, MediatR, EF, Postgresql, Jenkins and Docker
 
 2)	The microservice has Domain driven design approach and create aggregate root for User. Todos and Posts are aggregation under this aggregate root. All the Business rules are added in the Domain/Entity layer. Unit testing for Business logic performed with Domain entities.
@@ -21,7 +21,7 @@ Approach to solve the practical test
     
 Each of the approaches are further discussed in details the following sections:
 
-Microservice Design
+# Microservice Design
 
 
 
@@ -35,13 +35,13 @@ Microservice Design
 * Repository pattern not applied.
 ![image](https://github.com/shijithss/PTWebApi/assets/32163593/25f699a2-79b0-43c5-9481-8f311db877d3)
 
-DB Design
+# DB Design
 Create Write database and Read database based on CQRS approach
 Create tables in the DB using EF migrations Code First approach.
 Migrations generated and applied separately for Command DB and Query DB.
 
 
-Deployment Approach
+# Deployment Approach
 * Dockerize the service and use registry to store the images.
 * Created Jenkins CI/CD pipeline to deploy the service image to Docker hub registry
 * Used TWO Postgresql docker image to run the DB for Command and Query DB in the application.
@@ -51,17 +51,17 @@ Deployment Approach
 
 
 
-Deployment Approach To AWS Cloud
+## Deployment Approach To AWS Cloud
 The docker images are published to ECR registry
 From ECR registry the images are deployed to ECS/EC2. To use Jenkins pipeline along with Terraform for environment configuration.
 Future scope: For Orchestration and management of containers EKS is considered. Need to add Kubernetes config files for the containers.
 
-Deployment Approach To Azure Cloud
+## Deployment Approach To Azure Cloud
 The docker images are published to ACR registry
 From ACR registry the images are deployed to Azure Apps. To use Azure DevOps pipeline.
 Future scope: For Orchestration and management of containers AKS is considered. Need to add Kubernetes config files for the containers.
 
-UnitTesting approach
+# UnitTesting approach
 * Xunit used for UnitTest
 * Microsoft.EntityFrameworkCore.InMemory for DB Context in memory
 * Mock Mediatr
@@ -70,14 +70,14 @@ UnitTesting approach
 
 
 
-Console Application Design
+# Console Application Design
 * Console application 1 => Window to run all the services to create user and filter user records
 * Console application 2 => Window to run all the services to Get all the posts based on the model in the scope
 
 
 
 
-Steps to create the project
+# Steps to create the project
 1)	Created Web API project with .Net 6.0 framework. Apply docker support for containerization.
 2)	Have 5 projects under this solution. 
 Microservices\Products.Microservice
@@ -87,6 +87,7 @@ ConsoleApplications\ConsoleApp1
 ConsoleApplications\ConsoleApp2
 3)	Configure Ocelot Gateway in Gateway.WebAPI. Use ocelot json to define the microservice mappings.
 4)	Install the following packages in the microservices project Products.Microservice
+```
 Install-Package Microsoft.EntityFrameworkCore
 Install-Package Microsoft.EntityFrameworkCore.Design
 Install-Package Microsoft.EntityFrameworkCore.Tools
@@ -99,12 +100,14 @@ Install-Package Newtonsoft.Json
 Install the following packages in the Unit test project
 Install-Package Moq
 Install-Package Xunit
+```
 
 
 
 5)	Add the ApplicationDBContext class and Interface for Command and Query database. Define the connections strings in Appsettings.json
 6)	Under Domain folder create entities for User, Post and Todo
 7)	Configure the Migrations assembly and execute the below commands
+ ```
 		Add-Migration InitialCommand -Context ApplicationCommandDBContext -OutputDir Infrastructure\Migrations\CommandDB
 		
 		Update-Database -Context ApplicationCommandDBContext 
@@ -112,18 +115,19 @@ Install-Package Xunit
 		Add-Migration InitialQuery -Context ApplicationQueryDBContext -OutputDir Infrastructure\Migrations\QueryDB
 		
 		Update-Database -Context ApplicationQueryDBContext
-8)	Configure the MediatR assembly in startup.cs
-9)	Configure AutoMapper and Define Mappings in UserProfile
-10)	Define the models for user, post and todo under application layer
-11)	Define repository for DummyJson in the infrastructure layer
-12)	Add the commands and Queries for CQRS
-13)   Define the behaviours for logging, exception handling
+```
+9)	Configure the MediatR assembly in startup.cs
+10)	Configure AutoMapper and Define Mappings in UserProfile
+11)	Define the models for user, post and todo under application layer
+12)	Define repository for DummyJson in the infrastructure layer
+13)	Add the commands and Queries for CQRS
+14)   Define the behaviours for logging, exception handling
 
 
 
 
-Jenkins Deployment Output Log to build and push the image to Docker Hub.
-
+# Jenkins Deployment Output Log to build and push the image to Docker Hub.
+```
 Started by user admin
 Running as SYSTEM
 Building in workspace C:\Users\sshylan\AppData\Local\Jenkins\.jenkins\workspace\PTWebAPIBuild
@@ -255,3 +259,4 @@ f6c4eaf2bdb1: Pushed
 8ce178ff9f34: Pushed
 latest: digest: sha256:ad732ca3ba412b0170875d1a441a51ec12e2b5de6e4ae02dc9f884211815fa56 size: 1994
 Finished: SUCCESS
+```
